@@ -1,0 +1,15 @@
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\bin\Debug\net8.0\BAL.deps.json
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\bin\Debug\net8.0\BAL.dll
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\bin\Debug\net8.0\BAL.pdb
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\bin\Debug\net8.0\DAL.dll
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\bin\Debug\net8.0\DAL.pdb
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.csproj.AssemblyReference.cache
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.AssemblyInfoInputs.cache
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.AssemblyInfo.cs
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.csproj.CoreCompileInputs.cache
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.csproj.Up2Date
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.dll
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\refint\BAL.dll
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\BAL.pdb
+C:\Users\Hedaya_city\OneDrive\Desktop\StoreOnline Website\Back-end-main-project\BAL\obj\Debug\net8.0\ref\BAL.dll
