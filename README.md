@@ -17,7 +17,7 @@ It is built using **.NET 9** and provides a **RESTful API** to handle all server
 
 ### 1. Database Setup
 Make sure you have a **SQL Server** instance running.  
-You will need to create a database and run the provided **DataBase scripts** from the main project repository.
+You will need to create a database and run the provided **SQL scripts** from the main project repository.
 
 ### 2. Run the API
 Navigate to this directory:  
