@@ -23,3 +23,9 @@ You will need to create a database and run the provided **SQL scripts** from the
 Navigate to this directory:  
 ```bash
 cd Back-End
+
+---
+###
+### Database Entity Relationship Diagram (ERD)
+![Database Schema](./ValoreRS.png)
+
