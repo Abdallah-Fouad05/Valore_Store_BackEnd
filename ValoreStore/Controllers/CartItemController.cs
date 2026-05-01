@@ -1,5 +1,6 @@
 ﻿using BAL;
 using DAL.DTos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/cart-items")]
     public class CartItemController : ControllerBase

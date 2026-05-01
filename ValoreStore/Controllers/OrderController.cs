@@ -1,10 +1,12 @@
 ﻿using BAL;
 using DAL.DTos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/orders")]
     public class OrderController : ControllerBase

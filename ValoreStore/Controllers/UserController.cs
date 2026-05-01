@@ -2,24 +2,53 @@
 using BAL;
 using DAL.DTos;
 using DAL.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualBasic;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/User")]
     public class UserController : ControllerBase
     {
+        [Authorize(Roles = "Admin")]
+        [HttpGet("All")]
+        [ProducesResponseType(typeof(List<UserDTO>), 200)]
+        [ProducesResponseType(typeof(string), 500)]
+        public async Task<IActionResult> GetAllUser()
+        {
+            try
+            {
+                var Users = await UserBusiness.GetAllUsers();
+                return Ok(Users);
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserDTO), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetUserById(int id)
+        public async Task<IActionResult> GetUserById(int id, [FromServices] IAuthorizationService authorizationService)
         {
             try
             {
                 var user = await UserBusiness.GetUserByID(id);
                 if (user == null)
                     return NotFound($"User with ID {id} not found.");
+
+                var authResult = await authorizationService.AuthorizeAsync(
+               User,
+               id,
+               "UserOwnerOrAdmin");
+
+                //poilecey
+                if (!authResult.Succeeded)
+                    return Forbid(); // 403
 
                 return Ok(user);
             }
@@ -52,18 +81,34 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult UpdateUser([FromBody] UserDTO user)
+        public async Task<IActionResult> UpdateUser([FromForm] User_Updated_Request user)
         {
             try
             {
-                var result = UserBusiness.UpdateUser(user);
+                string? fileName = null;
+                if (user.UserImage != null && user.UserImage.Length > 0)
+                {
+                    fileName = $"{Guid.NewGuid()}{Path.GetExtension(user.UserImage.FileName)}";
+                    var path = Path.Combine("wwwroot/images", fileName);
+
+                    using var stream = new FileStream(path, FileMode.Create);
+
+                    await user.UserImage.CopyToAsync(stream);
+                }
+                var updated_user = new UserDTO
+                (
+                   user.UserID,
+                  user.UserName, "", "", fileName, DateTime.Now, DateTime.Now, ""
+                );
+
+                var result = UserBusiness.UpdateUser(updated_user);
                 if (result)
                     return Ok();
 
-                return StatusCode(500, new { message = "User update failed." });
+                return StatusCode(500, new { message = "Product update failed." });
             }
             catch (ApplicationException ex)
             {
@@ -71,6 +116,32 @@ namespace API.Controllers
             }
         }
 
+
+        [HttpPut("ChangePassword")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> ChangePassword([FromBody] User_ChangePassword_Request user)
+        {
+            try
+            {
+               
+                var updated_user = new UserDTO
+                (
+                   user.UserID,"","",user.password,
+                   "", DateTime.Now, DateTime.Now, ""
+                );
+
+                var result = UserBusiness.ChangePassword(updated_user);
+                if (result)
+                    return Ok();
+
+                return StatusCode(500, new { message = "Product change Password erro." });
+            }
+            catch (ApplicationException ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+        }
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
@@ -90,44 +161,21 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("Login")]
-        [ProducesResponseType(typeof(UserLogInResult), 200)]
-        [ProducesResponseType(401)]
+        [HttpPut("ChangeRole")]
+        [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Login([FromBody] UserLogInDTO user)
+        public async Task<IActionResult> ChangeUserRole(User_ChangeRole_Request user)
         {
             try
             {
-                var result = await UserBusiness.LogIn(user);
-                if (result == null)
-                    return Unauthorized("Invalid email or password.");
+                var result = await UserBusiness.ChangeUserRole(user.AdminID,user.UserID,user.Role);
+                if (result)
+                    return Ok();
 
-                return Ok(result);
+                return StatusCode(500, new { message = "User updatin failed." });
             }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(500, new { message = ex.Message });
-            }
-        }
-
-        [HttpPost("SignUp")]
-        [ProducesResponseType(typeof(CreatedUser), 201)]
-        [ProducesResponseType(500)]
-        public IActionResult SignUp([FromBody] UserSignUpDTO user)
-        {
-            try
-            {
-                var createdUser = UserBusiness.SignUp(user);
-
-                return CreatedAtAction(
-                    nameof(GetUserById),
-                    new { id = createdUser.UserID},
-                    createdUser
-                );
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(500, new { message = ex.Message });
+            catch (ApplicationException ex) { 
+                   return StatusCode(500, new {message = ex.Message});            
             }
         }
     }

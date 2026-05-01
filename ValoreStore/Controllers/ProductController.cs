@@ -2,6 +2,7 @@
 using BAL;
 using DAL.DTos; 
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -30,14 +31,32 @@ namespace API.Controllers
         }
 
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(typeof(string), 500)]
-        public IActionResult CreateProduct([FromBody] Product_Created product)
+        public async Task<IActionResult> CreateProduct([FromForm] Product_Created_Request product)
         {
             try
             {
-                var (success, productId) = ProductBusiness.CreateProduct(product);
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(product.ProductImage.FileName)}";
+                var path = Path.Combine("wwwroot/images", fileName);
+
+                using var stream = new FileStream(path, FileMode.Create);
+
+                await product.ProductImage.CopyToAsync(stream);
+
+                var NewProduct = new Product_Created
+                (
+                    product.ProductName,
+                    product.Title,
+                    product.Description,
+                    product.Price,
+                    product.Quantity,
+                    string.IsNullOrEmpty(fileName) ? null : fileName,
+                    product.CategoryID
+                );
+                var (success, productId) = ProductBusiness.CreateProduct(NewProduct);
                 if (success)
                     return StatusCode(201, new { ProductID = productId});
 
@@ -49,17 +68,37 @@ namespace API.Controllers
             }
         }
 
-
-
-
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(string), 500)]
-        public IActionResult UpdateProduct([FromBody] Product_Created product)
+        public async Task<IActionResult> UpdateProduct([FromForm] Product_Updated_Request product)
         {
             try
             {
-                var result = ProductBusiness.UpdateProduct(product);
+                string? fileName = null;
+                if (product.ProductImage != null && product.ProductImage.Length > 0)
+                {
+                    fileName = $"{Guid.NewGuid()}{Path.GetExtension(product.ProductImage.FileName)}";
+                    var path = Path.Combine("wwwroot/images", fileName);
+
+                    using var stream = new FileStream(path, FileMode.Create);
+
+                    await product.ProductImage.CopyToAsync(stream);
+                }
+                var updatedProduct = new Product_Updated
+                (
+                    product.ProductID,
+                    product.ProductName,
+                    product.Title,
+                    product.Description,
+                    product.Price,
+                    product.Quantity,
+                    fileName,
+                    product.CategoryID
+                );
+
+                var result = ProductBusiness.UpdateProduct(updatedProduct);
                 if (result)
                     return Ok();
 
@@ -71,6 +110,7 @@ namespace API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(string), 500)]
@@ -90,6 +130,7 @@ namespace API.Controllers
             }
         }
 
+       
         [HttpGet("GetAll")]
         [ProducesResponseType(typeof(List<ProductDTO>), 200)]
         [ProducesResponseType(typeof(string), 500)]
@@ -122,6 +163,8 @@ namespace API.Controllers
             }
         }
 
+
+       
         [HttpGet("Random/{count}")]
         [ProducesResponseType(typeof(List<ProductDTO>), 200)]
         [ProducesResponseType(typeof(string), 500)]
