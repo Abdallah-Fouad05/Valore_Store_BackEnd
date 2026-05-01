@@ -159,7 +159,7 @@ namespace DAL
                 connection.Close();
             }
         }
-        public static bool UpdateProduct(Product_Created product)
+        public static bool UpdateProduct(Product_Updated product)
         {
             using SqlConnection connection = new(clsSettings.Connection);
             using SqlCommand cmd = new("sp_UpdateProduct", connection);

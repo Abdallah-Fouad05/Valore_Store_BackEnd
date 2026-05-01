@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DTos
+namespace DAL.DTos.Auth
 {
-    public class LoginRequest
+    public class LogoutRequest
     {
         public string Email { get; set; }
-        public string Password { get; set; }
-
+        public string RefreshToken { get; set; }
     }
-
 }

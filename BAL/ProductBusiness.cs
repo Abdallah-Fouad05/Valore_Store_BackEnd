@@ -56,7 +56,7 @@ namespace BAL
             }
         }
 
-        public static bool UpdateProduct(Product_Created product)
+        public static bool UpdateProduct(Product_Updated product)
         {
             try
             {

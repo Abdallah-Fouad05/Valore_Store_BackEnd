@@ -27,7 +27,7 @@ namespace DAL
                 {
                     return new orderDTO_Details(
                                 reader.GetInt32(reader.GetOrdinal("OrderID")),
-                                new UserDTO(reader.GetInt32(reader.GetOrdinal("UserID")), reader.GetString(reader.GetOrdinal("UserName")), null, null, reader.GetString(reader.GetOrdinal("ImageUrl")), DateTime.Now, DateTime.Now, false),
+                                new UserDTO(reader.GetInt32(reader.GetOrdinal("UserID")), reader.GetString(reader.GetOrdinal("UserName")), null, null, reader.GetString(reader.GetOrdinal("ImageUrl")), DateTime.Now, DateTime.Now, "User"),
                                 reader.GetDateTime(reader.GetOrdinal("OrderDate")), reader.GetFloat(reader.GetOrdinal("TotalAmount")));
                 }
                 return null;
@@ -114,7 +114,7 @@ namespace DAL
                         orderitemid: reader.GetInt32(reader.GetOrdinal("OrderItemID")),
                         order: new orderDTO(
                                orderid: reader.GetInt32(reader.GetOrdinal("OrderID")),
-                               user: new UserDTO(reader.GetInt32(reader.GetOrdinal("UserID")),reader.GetString(reader.GetOrdinal("UserName")),"",null, reader.GetString(reader.GetOrdinal("UserImageURL")),DateTime.Now,DateTime.Now,false),
+                               user: new UserDTO(reader.GetInt32(reader.GetOrdinal("UserID")),reader.GetString(reader.GetOrdinal("UserName")),"",null, reader.GetString(reader.GetOrdinal("UserImageURL")),DateTime.Now,DateTime.Now,"User"),
                                createdat: reader.GetDateTime(reader.GetOrdinal("OrderDate")),
                                totalamount: reader.GetFloat(reader.GetOrdinal("TotalAmount"))),
                         product: new ProductDTO(reader.GetInt32(reader.GetOrdinal("ProductID")),reader.GetString(reader.GetOrdinal("ProductName")),"","",0,0,reader.GetString(reader.GetOrdinal("ProductImageURL")),null),

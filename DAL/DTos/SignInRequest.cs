@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace DAL.DTos
 {
-    public class LoginRequest
+    public class SignInRequest
     {
         public string Email { get; set; }
         public string Password { get; set; }
-
+        public string FullName { get; set; }
     }
-
 }

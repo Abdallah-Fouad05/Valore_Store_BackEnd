@@ -6,6 +6,17 @@ namespace BAL
 {
     public class UserBusiness
     {
+        public static async Task<List<UserDTO>> GetAllUsers()
+        {
+            try
+            {
+                return await clsUserData.GetAllUsers();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public static async Task<UserDTO?> GetUserByID(int userID)
         {
             try
@@ -43,7 +54,18 @@ namespace BAL
                     $"Service error while updating user with ID {user.UserID}.", ex);
             }
         }
-
+        public static bool ChangePassword(UserDTO user)
+        {
+            try
+            {
+                return clsUserData.ChangePassword(user);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException(
+                    $"Service error while change Password with ID {user.UserID}.", ex);
+            }
+        }
         public static bool DeleteUser(int userID)
         {
             try
@@ -57,19 +79,24 @@ namespace BAL
             }
         }
 
-        public static async Task<UserLogInResult?> LogIn(UserLogInDTO user)
+        public static async Task<UserDTO?> GetRefreshTokenByEmail(string email)
         {
-            try
-            {
-                return await clsUserData.LogIn(user);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Service error while logging in.", ex);
-            }
+            return await clsUserData.GetRefreshTokenByEmail(email);
         }
 
-        public static CreatedUser SignUp(UserSignUpDTO user)
+        public static async Task<bool> UpdateRefreshToken(string email, string refreshTokenHash, DateTime expiresAt)
+        {
+            return await clsUserData.UpdateRefreshToken( email, refreshTokenHash, expiresAt);
+        }
+
+        public static async Task<UserDTO?> LogIn(LoginRequest user)
+        {
+        
+                return await clsUserData.LogIn(user);
+            
+        }
+
+        public static UserDTO SignUp(SignInRequest user)
         {
             try
             {
@@ -78,6 +105,19 @@ namespace BAL
             catch (Exception ex)
             {
                 throw new ApplicationException("Service error while signing up.", ex);
+            }
+        }
+
+        public static Task<bool> ChangeUserRole(int adminID,int UserID,bool role)
+        {
+            try
+            {
+                return clsUserData.ChangeUserRole(adminID, UserID, role);
+            }
+            catch (Exception ex) 
+            {
+                throw new ApplicationException("Service error while updating role");
+            
             }
         }
     }
