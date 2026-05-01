@@ -1,30 +1,165 @@
-# Valore Store - Back-End API
+# 🛒 Valore Store - Back-End API
 
-This is the Back-End for  **Valore Store E-Commerce** project.  
-It is built using **.NET 9** and provides a **RESTful API** to handle all server-side functionality.
-
----
-
-## ⚒️ Technologies Used
-- **.NET 9**
-- **C#**
-- **RESTful API**
-- **SQL Server** (Database Required)
+The **Valore Store Back-End API** is a robust and scalable RESTful service built with **.NET 9**.
+It powers an E-Commerce platform by handling business logic, data management, and client-server communication.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Features
 
-### 1. Database Setup
-Make sure you have a **SQL Server** instance running.  
-You will need to create a database and run the provided **SQL scripts** from the main project repository.
+* 🔐 Authentication & Authorization (JWT Ready)
+* 👤 User Management
+* 🛍️ Product Management
+* 📦 Order Processing System
+* 📊 Order & Payment Status Tracking
+* 🧩 Modular & Scalable Architecture
 
-### 2. Run the API
-Navigate to this directory:  
+---
+
+## 🏗️ Tech Stack
+
+* **.NET 8**
+* **C#**
+* **ASP.NET Core Web API**
+* **SQL Server**
+* **ADO.net**
+* **RESTful Architecture**
+
+---
+
+## 📂 Project Structure
+
 ```bash
-cd Back-End
+Back-End/
+│── Controllers/       # API Endpoints
+│── Business/          # Business Logic
+│── Data/              # Data Access Layer
+│── DTOs/              # Entities & DTOs
+│── Program.cs         # Entry Point
+```
 
 ---
-### Database Entity Relationship Diagram (ERD)
-<img width="1884" height="951" alt="ValoreRS" src="https://github.com/user-attachments/assets/6320bca2-31af-4ff2-9748-ce2e40d4750a" />
 
+## 🗄️ Database Design
+
+The system is built using a well-structured relational database.
+
+### 📊 ERD Diagram
+
+### ERD
+![ERD](https://github.com/user-attachments/assets/a9288e6c-127a-4684-9443-3d667e384673)
+
+### 🔑 Core Entities:
+
+* Users
+* Products and Categories
+* Orders
+* OrderItems
+* Carts
+* CartItems
+* Shipping
+* Status
+* Review
+
+---
+
+## ⚙️ Getting Started
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/valore-store.git
+cd valore-store/Back-End
+```
+
+---
+
+### 2️⃣ Configure Database
+
+Update your **connection string** inside:
+
+```json
+appsettings.json
+```
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=YOUR_SERVER;Database=ValoreStore;Trusted_Connection=True;"
+}
+```
+
+---
+
+### 3️⃣ Apply Migrations
+
+```bash
+dotnet ef database update
+```
+
+---
+
+### 4️⃣ Run the API
+
+```bash
+dotnet run
+```
+
+API will run on:
+
+```
+https://localhost:xxxx
+```
+
+---
+
+## 📬 API Endpoints
+
+| Method | Endpoint           | Description        |
+| ------ | ------------------ | ------------------ |
+| GET    | /api/products      | Get all products   |
+| GET    | /api/products/{id} | Get product by ID  |
+| POST   | /api/products      | Create new product |
+| PUT    | /api/products/{id} | Update product     |
+| DELETE | /api/products/{id} | Delete product     |
+
+*(More endpoints available for Users, Orders, Shipping, etc.)*
+
+---
+
+## 🔐 Authentication
+
+* JWT-based authentication (if implemented)
+* Secure endpoints with `[Authorize]`
+
+---
+
+## 🧠 Best Practices Applied
+
+* Clean Architecture Principles
+* Separation of Concerns
+* Repository Pattern
+* DTO Usage
+* Validation & Error Handling
+
+---
+
+## 📌 Future Improvements
+
+* 🛒 Shopping Cart System
+* ❤️ Wishlist Feature
+* ⭐ Product Reviews & Ratings
+* 🎟️ Coupons & Discounts
+* 📊 Admin Dashboard
+
+---
+
+## 👨‍💻 Author
+
+**Abdallah Fouad**
+Back-End Developer (.NET)
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub!
