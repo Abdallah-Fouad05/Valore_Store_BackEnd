@@ -25,7 +25,6 @@ Navigate to this directory:
 cd Back-End
 
 ---
-###
 ### Database Entity Relationship Diagram (ERD)
 ![Database Schema](./ValoreRS.png)
 
