@@ -26,5 +26,5 @@ cd Back-End
 
 ---
 ### Database Entity Relationship Diagram (ERD)
-![Database Schema](./ValoreRS.png)
+<img width="1884" height="951" alt="ValoreRS" src="https://github.com/user-attachments/assets/6320bca2-31af-4ff2-9748-ce2e40d4750a" />
 
